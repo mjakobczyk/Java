@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Morse Translator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="style.css" type="text/css"/>
+
+</head>
+<body>
+<form action="?">
+    <hr>
+    <div class="row">
+        <div class="col-md-10 text-center col-centered">
+            <font size="6"><b>Morse Translator</b></font>
+        </div>
+    </div>
+
+    <form action="?">
+        <div>
+            <center>
+                <textarea cols="40" rows="3" wrap="physical" name=inputTextArea id="inputTextArea"></textarea>
+            </center>
+        </div>
+    </form>
+
+    <div class="row">
+        <div class="col-md-5"></div>
+        <div class="col-md-12 text-center"><h3>
+            <input type="submit" class="btn btn-primary" onclick="toMorse()" id="l2m" value="Translate to Morse"/></h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-5"></div>
+        <div class="col-md-12 text-center"><h3>
+            <input type="submit" class="btn btn-primary" onclick="toLatin()" id="m2l" value="Translate to Latin"/></h3>
+        </div>
+    </div>
+
+    <form action="?">
+        <div>
+            <center>
+                <textarea cols="40" rows="3" disabled="disabled" wrap="physical" name=outputTextArea id="outputTextArea">
+                </textarea>
+            </center>
+        </div>
+    </form>
+
+    <div class="row">
+        <div class="col-md-5"></div>
+        <div class="col-md-12 text-center"><h3>
+            <input type="submit" class="btn btn-info" onClick="history()" id="his" value="Show history"/></h3>
+        </div>
+    </div>
+
+    <form action="?">
+        <div>
+            <center>
+                <textarea cols="40" rows="3" disabled="disabled" wrap="physical" name=historyTextArea id="historyTextArea">
+                </textarea>
+            </center>
+        </div>
+    </form>
+
+    </hr>
+</form>
+
+<script type="text/javascript">
+
+function toMorse() {
+    document.getElementById("outputTextArea").value = activity.translateToMorse(document.getElementById("inputTextArea").value);
+}
+
+function toLatin() {
+    document.getElementById("outputTextArea").value = activity.translateToLatin(document.getElementById("inputTextArea").value);
+}
+
+function history() {
+    document.getElementById("historyTextArea").value = activity.history();
+}
+
+</script>
+
+</body>
+</html>
