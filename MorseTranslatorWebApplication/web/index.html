@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Morse Translator</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" >
+        <link rel="stylesheet" href="style.css" type="text/css"/>
+
+    </head>
+    <body>
+        <form action="Translate" method="GET">
+            <hr>
+            <div class="row">
+                <div class="col-md-12 text-center col-centered">
+                    <h1><b>Welcome to the Morse Translator!</b></h1>
+                </div>
+            </div><br>
+
+            <div class="row">
+                <div class="col-md-12 text-center col-centered">
+                    <h2>Please specify all required information.</h2>
+                </div>
+            </div><br>
+
+            <div class="row">
+                <div class="col-md-12 text-center col-centered">
+                    <h3>Input file name: <br />
+                        Example: C:\\Dokumenty\Pliki\plikwej.txt</h3>
+                </div>
+            </div><br>
+            
+            <div class="row">
+                <div class="col-md-5"></div>
+                <div class="col-md-2 text-center col-centered">
+                    <input type="text" class="form-control" name=inputFile />
+                </div>
+            </div><br>
+                    
+            <div class="row">
+                <div class="col-md-12 text-center col-centered">
+                    <h3>Output file name: <br />
+                        Example: C:\\Dokumenty\Pliki\plikwyj.txt</h3>
+                </div>
+            </div><br>
+                    
+            <div class="row">
+                <div class="col-md-5"></div>
+                <div class="col-md-2 text-center col-centered">
+                    <input type="text" class="form-control" name=outputFile />
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12 text-center col-centered">
+                    <h3>Conversion type:</h3>
+                </div>
+            </div><br>
+                    
+            <div class="select">
+                <div align="center">
+                    <select name=conversionType>
+                        <option selected value="l2m" >Latin to Morse</option>
+                        <option value="m2l">Morse To Latin</option>
+                    </select> 
+                </div>
+            </div><br>
+            
+            <div class="row">
+                <div class="col-md-5"></div>
+                <div class="col-md-12 text-center"><h3>
+                        <input type="submit" class="btn btn-primary" value="Run translation"/></h3>
+                </div>
+            </div>      
+            
+        </form>
+        
+        <form action="GetHistory" method="GET">
+            <div class="col-md-12 text-center"><h3>
+                    <input type="submit" class="btn btn-info" value="Show history"/></h3></div>
+        </form>
+        <hr>
+    </body>
+</html>
