@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>TextModel.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;MorseTranslator&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">pl.polsl.java.michal.jakobczyk.lab2.model</a> &gt; <span class="el_source">TextModel.java</span></div><h1>TextModel.java</h1><pre class="source lang-java linenums">package pl.polsl.java.michal.jakobczyk.lab2.model;
+
+import java.util.*;
+import java.io.*;
+
+/**
+ * Cotains text that user reads from a file
+ * and text that is converted to another language
+ * @author Michał Jakóbczyk
+ * @version 1.0
+ */
+public class TextModel {
+    
+    /**
+     * Stores text from the user
+     */
+    private ArrayList&lt;String&gt; originalText;
+    
+    /**
+     * Stores converted version of the original text
+     */
+    private ArrayList&lt;String&gt; convertedText;
+    
+     /**
+     * File input stream to read the data
+     */
+    private BufferedReader fileInput;
+    
+    /**
+     * Name of the input file
+     */
+    private final String fileInputName;
+    
+    /**
+     * File output stream to write the data
+     */
+    private BufferedWriter fileOutput;
+    
+    /**
+     * Name of the output file
+     */
+    private final String fileOutputName;
+    
+    /**
+     * Default constructor of the class
+     * @param fileInputName for reading input data from the user
+     * @param fileOutputName for writing output data for the user
+     */
+<span class="fc" id="L49">    public TextModel(String fileInputName, String fileOutputName) {</span>
+<span class="fc" id="L50">        this.originalText = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L51">        this.convertedText = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L52">        this.fileInputName = fileInputName;</span>
+<span class="fc" id="L53">        this.fileOutputName = fileOutputName;</span>
+<span class="fc" id="L54">    }</span>
+    
+    /**
+     * Getter for original text container
+     * @return original text container
+     */
+    public ArrayList&lt;String&gt; getOriginalText() {
+<span class="fc" id="L61">        return this.originalText;</span>
+    }
+    
+    /**
+     * Converts ArrayList of Strings to single String
+     * @return original text in String variable
+     */
+    public String getOriginalTextString() {
+<span class="nc" id="L69">        StringBuilder stringBuilder = new StringBuilder();</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">        for (String temp : originalText) {</span>
+<span class="nc" id="L71">            stringBuilder.append(temp);</span>
+<span class="nc" id="L72">        }</span>
+            
+<span class="nc" id="L74">        return stringBuilder.toString();</span>
+    }
+    
+    /**
+     * Setter for original text container
+     * @param originalText read from file
+     */
+    public void setOriginalText(ArrayList&lt;String&gt; originalText) {
+<span class="fc" id="L82">        this.originalText.clear();</span>
+<span class="fc" id="L83">        this.originalText = originalText;</span>
+<span class="fc" id="L84">    }</span>
+    
+    /**
+     * Getter for converted text container
+     * @return converted text in container
+     */
+    public ArrayList&lt;String&gt; getConvertedText() {
+<span class="fc" id="L91">        return this.convertedText;</span>
+    }
+    
+    /**
+     * Converts ArrayList of Strings to single String
+     * @return converted text in String variable
+     */
+    public String getConvertedTextString() {
+<span class="nc" id="L99">        StringBuilder stringBuilder = new StringBuilder();</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">        for (String temp : convertedText) {</span>
+<span class="nc" id="L101">            stringBuilder.append(temp);</span>
+<span class="nc" id="L102">        }</span>
+            
+<span class="nc" id="L104">        return stringBuilder.toString();</span>
+    }
+    
+    /**
+     * Setter for converted text container
+     * @param convertedText created by converter 
+     */
+    public void setConvertedText(ArrayList&lt;String&gt; convertedText) {
+<span class="fc" id="L112">        this.convertedText.clear();</span>
+<span class="fc" id="L113">        this.convertedText = convertedText;</span>
+<span class="fc" id="L114">    }</span>
+    
+    /**
+     * Reads data from file and stores in originalText container
+     * @throws IOException when there was a problem with i/o
+     */
+    public void readDataFromFile() throws  IOException {
+        String line;
+<span class="fc" id="L122">        ArrayList&lt;String&gt; dataFromFile = new ArrayList&lt;&gt;();</span>
+        
+        try {
+<span class="fc" id="L125">            this.fileInput = new BufferedReader(new FileReader(fileInputName));</span>
+            
+<span class="fc bfc" id="L127" title="All 2 branches covered.">            while ((line = fileInput.readLine()) != null ) {</span>
+<span class="fc" id="L128">                dataFromFile.add(line);</span>
+<span class="fc" id="L129">                dataFromFile.add(&quot;\n&quot;);</span>
+            }
+            
+<span class="fc" id="L132">            this.setOriginalText(dataFromFile);</span>
+            
+<span class="fc" id="L134">            fileInput.close();</span>
+        }
+<span class="nc" id="L136">        catch (IOException e) {</span>
+<span class="nc" id="L137">            throw new IOException();</span>
+<span class="fc" id="L138">        }</span>
+        
+<span class="fc" id="L140">    }</span>
+    
+    /**
+     * Writes to file data from convertedText container
+     * @throws IOException when there was a problem with i/o
+     */
+    public void writeDataToFile() throws IOException {
+        try {
+<span class="fc" id="L148">            this.fileOutput = new BufferedWriter(new FileWriter(fileOutputName));</span>
+                        
+<span class="fc bfc" id="L150" title="All 2 branches covered.">            for (String line : this.getConvertedText()) {</span>
+<span class="fc" id="L151">                fileOutput.write(line);</span>
+<span class="fc" id="L152">            }</span>
+
+<span class="fc" id="L154">            fileOutput.close();</span>
+        }
+<span class="nc" id="L156">        catch (IOException e) {</span>
+<span class="nc" id="L157">            throw new IOException();</span>
+<span class="fc" id="L158">        }</span>
+<span class="fc" id="L159">    }</span>
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

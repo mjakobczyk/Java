@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/NetBeansProjects/Michal-Jakobczyk-gr07-repo/lab3/MorseServer/src/pl/polsl/java/michal/jakobczyk/lab3/network/MorseTranslatorTCPServer.java</file>
+            <file>file:/C:/NetBeansProjects/Michal-Jakobczyk-gr07-repo/lab3/MorseServer/src/pl/polsl/java/michal/jakobczyk/lab3/network/SingleService.java</file>
+            <file>file:/C:/NetBeansProjects/Michal-Jakobczyk-gr07-repo/lab3/MorseServer/src/pl/polsl/java/michal/jakobczyk/lab3/exception/IncorrectConversionTypeException.java</file>
+            <file>file:/C:/NetBeansProjects/Michal-Jakobczyk-gr07-repo/lab3/MorseServer/src/pl/polsl/java/michal/jakobczyk/lab3/network/ServerController.java</file>
+            <file>file:/C:/NetBeansProjects/Michal-Jakobczyk-gr07-repo/lab3/MorseServer/src/pl/polsl/java/michal/jakobczyk/lab3/exception/NoArgumentsException.java</file>
+        </group>
+    </open-files>
+</project-private>

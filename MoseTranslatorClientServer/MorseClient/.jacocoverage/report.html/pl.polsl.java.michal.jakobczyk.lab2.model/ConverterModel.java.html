@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ConverterModel.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;MorseTranslator&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">pl.polsl.java.michal.jakobczyk.lab2.model</a> &gt; <span class="el_source">ConverterModel.java</span></div><h1>ConverterModel.java</h1><pre class="source lang-java linenums">package pl.polsl.java.michal.jakobczyk.lab2.model;
+
+import pl.polsl.java.michal.jakobczyk.lab2.exception.*;
+
+import java.util.ArrayList;
+import java.io.*;
+
+/**
+ * Contains converion algorithms
+ * @author Michał Jakóbczyk
+ * @version 1.0
+ */
+public class ConverterModel {
+    
+    /**
+     * Morse signs system
+     */
+    private final MorseSigns morseSigns;
+    
+    /**
+     * Latin signs system
+     */
+    private final LatinSigns latinSigns;
+    
+    /**
+     * Conversion type info
+     * Either &quot;l2m&quot; or &quot;m2l&quot;
+     */
+    private final String conversionType;
+    
+         /**
+     * Text controller 
+     */
+    private final TextModel textModel;
+    
+    /**
+     * Constant value of -1 to indicate that element does not exist
+     */
+<span class="fc" id="L39">    private final int elementNotFound = -1;</span>
+    
+    /**
+     * Default delimiter during conversion
+     */
+<span class="fc" id="L44">    private final String delimiter = &quot; &quot;;</span>
+    
+    
+    /**
+     * Constructor of the converter model
+     * @param fileInputName for reading data
+     * @param fileOutputName for writing data
+     * @param conversionType to choose between m2l and l2m
+     */
+<span class="fc" id="L53">    public ConverterModel(String fileInputName, String fileOutputName, String conversionType) {</span>
+<span class="fc" id="L54">        this.morseSigns = new MorseSigns();</span>
+<span class="fc" id="L55">        this.latinSigns = new LatinSigns();</span>
+<span class="fc" id="L56">        this.conversionType = conversionType;</span>
+<span class="fc" id="L57">        this.textModel = new TextModel(fileInputName, fileOutputName);</span>
+<span class="fc" id="L58">    }</span>
+    
+    /**
+     * Converts string into a list of characters using a specific delimiter
+     * @param delimiter which is usually a space
+     * @param content which is a string to explode
+     * @param morseCharacters list of morse characters exploded from content by delimiter
+     */
+    private void explodeString(String delimiter, String content, ArrayList&lt;String&gt; morseCharacters) {
+<span class="fc" id="L67">        ArrayList&lt;Integer&gt; matchesFound = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L68">        matchesFound.add(-1);</span>
+<span class="fc" id="L69">        int delimiterPosition = content.indexOf(delimiter);</span>
+<span class="fc bfc" id="L70" title="All 2 branches covered.">        if (delimiterPosition == elementNotFound)</span>
+<span class="fc" id="L71">            return;</span>
+        
+        // Loop through the content as long as delimiters are found
+        do {
+            // Add every found delimiter position to the container
+<span class="fc" id="L76">            matchesFound.add(delimiterPosition);</span>
+            
+            // Calculate the next possible delimiter position
+<span class="fc" id="L79">            delimiterPosition = content.indexOf(delimiter, delimiterPosition + delimiter.length());</span>
+<span class="fc bfc" id="L80" title="All 2 branches covered.">        } while (delimiterPosition != elementNotFound);</span>
+        
+        // Loop through delimiters positions as long as they exist  
+<span class="fc bfc" id="L83" title="All 2 branches covered.">        for (int i = 0; i &lt; matchesFound.size() - 1; ++i) {</span>
+<span class="fc" id="L84">            StringBuilder textTruncate = new StringBuilder();</span>
+            
+            // Append to the string builder an adequate part of the passed string
+<span class="fc" id="L87">            textTruncate.append(content.substring(matchesFound.get(i) + 1, matchesFound.get(i + 1)));</span>
+            
+            // Convert string builder into a string
+<span class="fc" id="L90">            String explodedContent = textTruncate.toString();</span>
+            
+            // Add string to the container of morse characters
+<span class="fc" id="L93">            morseCharacters.add(explodedContent);</span>
+        }
+<span class="fc" id="L95">    }</span>
+    
+    /**
+     * Converts morse code to latin
+     */
+    private void morseToLatin() { 
+         // Converted text variable
+<span class="fc" id="L102">        ArrayList&lt;String&gt; converted = new ArrayList&lt;&gt;();</span>
+        
+        // Loop through all the text lines
+<span class="fc bfc" id="L105" title="All 2 branches covered.">        for (int i = 0 ; i &lt; this.textModel.getOriginalText().size(); ++i) {</span>
+           // Single line is being taken from the input container
+           // String singleLine = this.textController.getTextModel().getOriginalText().get(i);
+           
+<span class="fc" id="L109">           ArrayList&lt;String&gt; morseStrings = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L110">           this.explodeString(delimiter, this.textModel.getOriginalText().get(i), morseStrings);</span>
+            
+            // Loop through each of the text line
+<span class="fc bfc" id="L113" title="All 2 branches covered.">            for (int j = 0; j &lt; morseStrings.size(); ++j) {</span>
+                /*
+                Single character from a single line is being converted from the character type
+                o the string type and converted into a lower case because Morse Translator
+                is not able to detect the size of the signs
+                */
+                
+<span class="fc" id="L120">                int singleCharPosition = this.morseSigns.getIndexOfValue(morseStrings.get(j));</span>
+<span class="fc bfc" id="L121" title="All 2 branches covered.">                if (singleCharPosition &gt;= 0) {</span>
+<span class="fc" id="L122">                    converted.add(this.latinSigns.getValue(singleCharPosition));</span>
+                }
+                else {
+<span class="pc bpc" id="L125" title="1 of 2 branches missed.">                    if (morseStrings.get(j).equals(&quot;&quot;)) {</span>
+<span class="fc" id="L126">                        converted.add(&quot; &quot;);</span>
+                    }
+                    else {
+<span class="nc" id="L129">                        converted.add(morseStrings.get(j));</span>
+                    }
+                }
+            }
+            
+            // If the current line is not the last a new line sign is being appended
+            // Add a new line after converting a whole line (the 3rd attempt
+            // because of morse tabbing system)
+<span class="fc bfc" id="L137" title="All 2 branches covered.">            if (i % 3 == 2 ) converted.add(System.lineSeparator());</span>
+        }
+
+        // Update the converted text
+<span class="fc" id="L141">        this.textModel.setConvertedText(converted);</span>
+<span class="fc" id="L142">    }</span>
+    
+    /** 
+     * Converts latin code to morse
+     */
+    private void latinToMorse() {
+        // Converted text variable
+<span class="nc" id="L149">        ArrayList&lt;String&gt; converted = new ArrayList&lt;&gt;();</span>
+        
+        // Loop through all the text lines
+<span class="nc bnc" id="L152" title="All 2 branches missed.">        for (int i = 0 ; i &lt; this.textModel.getOriginalText().size(); ++i) {</span>
+            // Single line is being taken from the input container
+<span class="nc" id="L154">            String singleLine = this.textModel.getOriginalText().get(i);</span>
+            
+            // Loop through each of the text line
+<span class="nc bnc" id="L157" title="All 2 branches missed.">            for (int j = 0; j &lt; singleLine.length(); ++j) {</span>
+                /*
+                Single character from a single line is being converted from the character type
+                o the string type and converted into a lower case because Morse Translator
+                s not able to detect the size of the signs
+                */
+<span class="nc" id="L163">                String singleChar = (Character.toString(singleLine.charAt(j))).toLowerCase();</span>
+<span class="nc" id="L164">                int singleCharPosition = this.latinSigns.getIndexOfValue(singleChar);</span>
+<span class="nc bnc" id="L165" title="All 2 branches missed.">                if (singleCharPosition &gt;= 0) {</span>
+<span class="nc" id="L166">                    converted.add(this.morseSigns.getValue(singleCharPosition));</span>
+<span class="nc" id="L167">                    converted.add(&quot; &quot;);</span>
+                }
+                else {
+<span class="nc" id="L170">                    converted.add(singleChar);</span>
+                }
+            }
+            
+            // If the current line is not the last a new line sign is being appended
+            // Add a new line after converting a whole line (the 2nd attempt
+            // because of morse tabbing system)
+<span class="nc bnc" id="L177" title="All 2 branches missed.">            if (i % 2 == 1) </span>
+<span class="nc" id="L178">                converted.add(System.lineSeparator());</span>
+            
+        }
+        
+        // Update the converted text
+<span class="nc" id="L183">        this.textModel.setConvertedText(converted);</span>
+<span class="nc" id="L184">    }</span>
+    
+    /**
+     * Runs the conversion of given type
+     * @throws IOException if there was a problem with a stream
+     * @throws IncorrectConversionTypeException
+     */
+    public void convert() throws IOException, IncorrectConversionTypeException {
+        
+            // First use controller to read data
+<span class="fc" id="L194">            this.textModel.readDataFromFile();</span>
+
+            // Adjust conversion type
+<span class="pc bpc" id="L197" title="1 of 2 branches missed.">            if (this.conversionType.equals(&quot;m2l&quot;)) {</span>
+<span class="fc" id="L198">                this.morseToLatin();</span>
+            }
+<span class="nc bnc" id="L200" title="All 2 branches missed.">            else if (this.conversionType.equals(&quot;l2m&quot;)) {</span>
+<span class="nc" id="L201">                this.latinToMorse();</span>
+            }
+            else {
+<span class="nc" id="L204">                throw new IncorrectConversionTypeException();</span>
+            }
+
+            // Last step is to write converted data
+<span class="fc" id="L208">            this.textModel.writeDataToFile();</span>
+<span class="fc" id="L209">    }</span>
+    
+    /**
+     * Getter for the TextModel
+     * @return TextModel instance
+     */
+    public TextModel getTextModel() {
+<span class="nc" id="L216">        return this.textModel;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>
